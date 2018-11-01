@@ -15,80 +15,79 @@
   </div>
 </template>
 <script>
-  import TaskForm from '@/components/TaskForm.vue'
-  export default {
-    components: {
-      TaskForm
+import TaskForm from '@/components/TaskForm.vue'
+export default {
+  components: {
+    TaskForm
+  },
+  props: {
+    task: {
+      type: Object,
+      required: true
+    }
+  },
+  data () {
+    return {
+      showDescription: false,
+      edit: false
+    }
+  },
+  computed: {
+    currentUser () {
+      return this.$store.state.user
     },
-    props: {
-      task: {
-        type: Object,
-        required: true
-      }
-    },
-    data() {
-      return {
-        showDescription: false,
-        edit: false,
-      }
-    },
-    computed: {
-      currentUser(){
-        return this.$store.state.user
-      },
-      formatedDate(){
-        return this.task.dueDate.split('T')[0]
-      },
-    },
-    methods: {
-      updateTask(body){
-        return new Promise( (resolve, reject) => {
-          fetch(`/api/task/${this.task._id}`, {
-            method: 'put',
-            headers: {
-              'Content-Type': 'application/json; charset=utf-8'
-            },
-            body: JSON.stringify(body)
-          })
+    formatedDate () {
+      return this.task.dueDate.split('T')[0]
+    }
+  },
+  methods: {
+    updateTask (body) {
+      return new Promise((resolve, reject) => {
+        fetch(`/api/task/${this.task._id}`, {
+          method: 'put',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+          },
+          body: JSON.stringify(body)
+        })
           .then(res => this.$store.dispatch('getCurrentUser'))
           .then(resolve)
           .catch(reject)
-
-        })
-      },
-      removeTask(){
-        const newTasks = this.currentUser.tasks.map(task => task._id)
-        const index = newTasks.indexOf(this.task._id)
-        newTasks.splice(index, 1)
-        console.log({newTasks, _id: this.task._id, index})
-        fetch(`/api/user/${this.currentUser._id}`, {
-          method: 'put',
-          headers: {
-              'Content-Type': 'application/json; charset=utf-8'
-            },
-            body: JSON.stringify({user: {tasks: newTasks}})
-        })
+      })
+    },
+    removeTask () {
+      const newTasks = this.currentUser.tasks.map(task => task._id)
+      const index = newTasks.indexOf(this.task._id)
+      newTasks.splice(index, 1)
+      fetch(`/api/user/${this.currentUser._id}`, {
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify({ user: { tasks: newTasks } })
+      })
         .then(_ => this.$store.dispatch('getCurrentUser'))
         .catch(console.error)
-      },
-      updateEntireTask(task){
-        const body = {
-          task
-        }
-        this.updateTask(body)
-        .then(_ =>{
+    },
+    updateEntireTask (task) {
+      const body = {
+        task
+      }
+      this.updateTask(body)
+        .then(_ => {
           this.edit = false
         })
         .catch(console.error)
-      },
-      toggleComplete(){
-        const body = {
-            task: {
-              completed: this.task.completed ? false : true,
-            }
+    },
+    toggleComplete () {
+      const body = {
+        task: {
+          // eslint-disable-next-line
+          completed: this.task.completed ? false : true
         }
-        this.updateTask(body)
       }
+      this.updateTask(body)
     }
   }
+}
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <form v-else @submit.prevent="submitMethod(taskWithUpdatedFields)" class="flex flex-col my-2">
+  <form @submit.prevent="submitMethod(taskWithUpdatedFields)" class="flex flex-col my-2">
     <select class="input" v-model="completed"  required="required">
       <option value="true">Complete</option>
       <option value="false">Open</option>
@@ -21,7 +21,7 @@ export default {
       type: Object
     }
   },
-  data() {
+  data () {
     return {
       completed: 'false',
       title: '',
@@ -30,7 +30,7 @@ export default {
     }
   },
   computed: {
-    taskWithUpdatedFields() {
+    taskWithUpdatedFields () {
       return {
         completed: this.completed,
         title: this.title,
@@ -39,7 +39,7 @@ export default {
       }
     }
   },
-  created(){
+  created () {
     if (this.task) {
       this.title = this.task.title
       this.completed = this.task.completed

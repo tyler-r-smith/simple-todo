@@ -6,20 +6,20 @@
   </div>
 </template>
 <script>
-  export default {
-    props: {
-      user: {
-        type: Object,
-        required: true
-      }
-    },
-    data () {
-      return {
-        keysForDisplay: [
-          'userName',
-          'about',
-        ]
-      }
+export default {
+  props: {
+    user: {
+      type: Object,
+      required: true
+    }
+  },
+  data () {
+    return {
+      keysForDisplay: [
+        'userName',
+        'about'
+      ]
     }
   }
+}
 </script>

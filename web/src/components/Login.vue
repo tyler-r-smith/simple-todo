@@ -23,13 +23,14 @@ export default {
     currentUser () {
       return this.$store.state.user
     },
-    displayError() {
-      if (!this.username) 
+    displayError () {
+      if (!this.username) {
         return 'Please fill out the username.'
-      else if(!this.password)
+      } else if (!this.password) {
         return 'Please fill out the username.'
-      else 
+      } else {
         return this.error
+      }
     }
   },
   methods: {

@@ -12,19 +12,19 @@
   </div>
 </template>
 <script>
-  import UserInfo from '@/components/UserInfo.vue'
-  import TaskInfo from '@/components/TaskInfo.vue'
-  import TaskCreate from '@/components/TaskCreate.vue'
-  export default {
-    components: {
-      UserInfo,
-      TaskInfo,
-      TaskCreate
-    },
-    computed: {
-      currentUser() {
-        return this.$store.state.user
-      }
+import UserInfo from '@/components/UserInfo.vue'
+import TaskInfo from '@/components/TaskInfo.vue'
+import TaskCreate from '@/components/TaskCreate.vue'
+export default {
+  components: {
+    UserInfo,
+    TaskInfo,
+    TaskCreate
+  },
+  computed: {
+    currentUser () {
+      return this.$store.state.user
     }
   }
+}
 </script>
