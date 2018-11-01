@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 mongoose.connect('mongodb://localhost/test')
 
-export default (app) => {
+export default (app, passport) => {
   app.get('/api/task/:taskId', passport.ensureAuthenticated, (req, res) => {
     Task.where({_id: req.params.taskId}).populate('tasks').findOne( (err, singleTask) => {
       return err ? res.send(err) :  
