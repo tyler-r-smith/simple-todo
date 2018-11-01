@@ -5,7 +5,6 @@ export default new Schema({
   title: {
     type: String,
     required: true,
-    index: {unique: true}
   },
   description: {
     type: String
