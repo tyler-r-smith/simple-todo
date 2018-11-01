@@ -29,3 +29,9 @@ cd web
 npm install
 npm run serve
 ```
+
+# Login to the app
+```
+  userName: firstuser
+  password: thisisapassowrd
+```
